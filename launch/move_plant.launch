@@ -1,4 +1,0 @@
-<launch>
-     <node name="escort_node" pkg="Guidebot" type="escort_node" output="screen">
-     </node>
-</launch>
