@@ -26,15 +26,9 @@ include_directories(include
 
 
 # Define the executables used in guidebot.
-add_executable(escort_node src/escort_node.cpp)
-add_executable(patrol_node src/patrol_node.cpp)
-add_executable(detect_node src/detect_node.cpp)
 add_executable(detection_node src/detect_node.cpp)
 add_executable(subscriber_node src/subscriber_node.cpp)
  
 # link libraries of the target files. 
-target_link_libraries(escort_node ${catkin_LIBRARIES})
-target_link_libraries(patrol_node ${catkin_LIBRARIES}) 
-target_link_libraries(detect_node ${catkin_LIBRARIES})
 target_link_libraries(detection_node ${catkin_LIBRARIES})
 target_link_libraries(subscriber_node ${catkin_LIBRARIES}) 
