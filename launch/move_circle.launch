@@ -1,6 +1,0 @@
-<launch>
-     <node name="patrol_node" pkg="Guidebot" type="patrol_node" output="screen" >
-     </node>
-     <node name="detect_node" pkg="Guidebot" type="detect_node" output="screen">
-     </node>
-</launch>
