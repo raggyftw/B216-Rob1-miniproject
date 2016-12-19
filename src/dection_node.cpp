@@ -37,38 +37,24 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         // using 2 for loops to make a line scan of the depth/Image.
               // stores the scan data in dist_val
         dist_val = cv_ptr->image.at<float>( 239,319 );
-        std_msgs::Int8 msg;
+        std_msgs::Int8 distance;
         if (dist_val <= 1) {
-            msg.data = 1;
+            distance.data = 1;
         }
         else if(dist_val <= 2  ){
-            msg.data = 2;
+            distance.data = 2;
         }
         else if(dist_val <= 3 ){
-            msg.data = 3;
+            distance.data = 3;
         }
         else if(dist_val <= 4 ){
-            msg.data = 4;
+            distance.data = 4;
         }
         else if(dist_val <= 5 ){
-            msg.data = 5;
+            distance.data = 5;
         }
-        ROS_INFO("%d", msg.data);
-        distance_pub.publish(msg);
-            //  sc.playWave("/home/oliver/ros_ws/src/guidebot/Piano/A.wav");
-
-              //std::cout << dist_val << std::endl;
-                // If statement to check when object is in front of turtbot.
-              /*  if (dist_val < 1.1){
-                  counter++;
-                  if(counter== 10 && kill == false){
-                  kill = true;
-
-                  // Killing the currently running nodes.
-                  //system("rosnode kill patrol_node");
-                  //system("rosnode kill detect_node");
-                  // Launches the next node.
-                  //system("roslaunch modular_lib_pkg move_plant.launch");
+        ROS_INFO("%d", distance.data);
+        distance_pub.publish(distance);
                   }//End of if statment.
                 }*///End of if statement.
     }//End of try .
