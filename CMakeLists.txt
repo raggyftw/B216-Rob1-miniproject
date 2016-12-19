@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 # Declare the name of the CMake Project
-project(guidebot)
+project(pianobot)
 
 
 
@@ -11,10 +11,6 @@ find_package(catkin REQUIRED
   roscpp
   rospy
   std_msgs
-  tf
-  geometry_msgs
-  move_base_msgs
-  actionlib
   sensor_msgs 
   cv_bridge
   image_transport
