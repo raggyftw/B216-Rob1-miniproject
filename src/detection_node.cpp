@@ -55,8 +55,6 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         }
         ROS_INFO("%d", distance.data);
         distance_pub.publish(distance);
-                  }//End of if statment.
-                }*///End of if statement.
     }//End of try .
     // Here any exception are handled.
      catch (const cv_bridge::Exception& e) {
