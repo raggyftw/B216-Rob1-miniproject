@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "detect_node");
     // Creating nodehandler.
     ros::NodeHandle n;
-    distance_pub = n.advertise<std_msgs::Int8>("chatter", 1);
+    distance_pub = n.advertise<std_msgs::Int8>("depth_value", 1);
     ros::NodeHandle nh;
     // Subscribing to the depth image and returning the callback.
     ros::Subscriber sub = nh.subscribe("camera/depth/image", ROS_QUEUE, Depth_callback);
