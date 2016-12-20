@@ -4,7 +4,7 @@
 #include "sound_play/sound_play.h"
 std::string path_to_sounds;
 
-class chatter{
+class sound{
   private:
     sound_play::SoundClient sc;
 
@@ -37,9 +37,9 @@ int main (int argc, char* argv[])
 {
 ros::init(argc, argv, "subscriber_node");
 ros::NodeHandle n;
-chatter music;
+sound music;
 path_to_sounds = "/home/oliver/ros_ws/src/guidebot/piano/";
-ros::Subscriber sub = n.subscribe("chatter", 1, &chatter::Callback, &music);
+ros::Subscriber sub = n.subscribe("depth_value", 1, &sound::Callback, &music);
 ros::spin();
 
 return 0;
