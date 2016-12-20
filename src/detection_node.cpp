@@ -13,7 +13,7 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
 {
     // Declaring the variables needed in the function.
     float dist_val = 0; //Float variable to store the depth data in meters.
-    
+
     try {
         // Declaring cv pointer and filling it with msg information.
         cv_bridge::CvImageConstPtr cv_ptr;
@@ -30,6 +30,8 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         // Stores the scan data in dist_val.
         dist_val = cv_ptr->image.at<float>( 239,319 );
         std_msgs::Int8 distance;
+        // Setting the desired frequency
+        ros::Rate loop_rate(1);
         if (dist_val <= 1) {
             distance.data = 1;
         }// End of if.
@@ -45,8 +47,16 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         else if(dist_val <= 5 ){
             distance.data = 5;
         }// End of else if.
-        ROS_INFO("%d", distance.data);
+        else {
+          distance.data = 0;
+        }// End of else.
+        // If statement to display distance.
+        if (distance.data != 0){
+          ROS_INFO("%d", distance.data);
+        }// End of if statement.
         distance_pub.publish(distance);
+        loop_rate.sleep();
+
     }//End of try .
     // Here any exception are handled.
      catch (const cv_bridge::Exception& e) {
@@ -58,8 +68,8 @@ int main(int argc, char* argv[])
 {
     // Here the publising queue for the publisher is set to 1 and 1000 for the subscriber.
     static const uint32_t ROS_QUEUE_PUB = 1;
-    static const uint32_t ROS_QUEUE_SUB = 1000;
-    
+    static const uint32_t ROS_QUEUE_SUB = 1;
+
     // initializing ros and naming the node.
     ros::init(argc, argv, "detection_node");
     // Creating nodehandler.
