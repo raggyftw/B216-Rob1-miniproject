@@ -3,7 +3,6 @@
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
 #include <cv_bridge/cv_bridge.h>
-#include <opencv2/highgui/highgui.hpp>
 #include <std_msgs/Int8.h>
 #include "sound_play/sound_play.h"
 
