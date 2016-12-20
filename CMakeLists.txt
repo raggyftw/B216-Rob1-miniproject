@@ -26,7 +26,7 @@ include_directories(include
 
 
 # Define the executables used in guidebot.
-add_executable(detection_node src/detect_node.cpp)
+add_executable(detection_node src/detection_node.cpp)
 add_executable(subscriber_node src/subscriber_node.cpp)
  
 # link libraries of the target files. 
