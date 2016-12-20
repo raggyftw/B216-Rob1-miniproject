@@ -7,8 +7,9 @@
 #include <std_msgs/Int8.h>
 #include "sound_play/sound_play.h"
 
-// Here the publising queue for the subscriber is set to 1000.
-static const uint32_t ROS_QUEUE = 1000;
+// Here the publising queue for the subscriber is set to 1.
+static const uint32_t ROS_QUEUE_PUB = 1;
+static const uint32_t ROS_QUEUE_SUB = 1000;
 // Declaring the variables need in the function.
 float dist_val = 0; //Float variable to store the depth data in meters.
 // Creating a global ROS publisher to publish the depth distance.
@@ -63,15 +64,15 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
 int main(int argc, char* argv[])
 {
     // initializing ros and naming the node.
-    ros::init(argc, argv, "detect_node");
+    ros::init(argc, argv, "detection_node");
     // Creating nodehandler.
     ros::NodeHandle n;
     // Advertising our publisher to the desired topic so it can be accessed by the subscriber_node.
-    distance_pub = n.advertise<std_msgs::Int8>("chatter", 1);
+    distance_pub = n.advertise<std_msgs::Int8>("depth_value", ROS_QUEUE_PUB);
     // Creating another nodehandler for the subscriber.
     ros::NodeHandle nh;
     // Subscribing to the depth image and returning the callback.
-    ros::Subscriber sub = nh.subscribe("camera/depth/image", ROS_QUEUE, Depth_callback);
+    ros::Subscriber sub = nh.subscribe("camera/depth/image", ROS_QUEUE_SUB, Depth_callback);
 
     ros::spin();
     return 0;
