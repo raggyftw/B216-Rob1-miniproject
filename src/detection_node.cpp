@@ -57,7 +57,7 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
 
 int main(int argc, char* argv[])
 {
-    // Here the publising queue for the subscriber is set to 1000 and 1 for the publisher.
+    // Here the publising queue for the publisher is set to 1 and 1000 for the subscriber.
     static const uint32_t ROS_QUEUE_PUB = 1;
     static const uint32_t ROS_QUEUE_SUB = 1000;
     
