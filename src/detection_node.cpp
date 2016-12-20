@@ -7,30 +7,28 @@
 #include <std_msgs/Int8.h>
 #include "sound_play/sound_play.h"
 
-// Here the publising queue for the subscriber is set to 1.
-static const uint32_t ROS_QUEUE_PUB = 1;
-static const uint32_t ROS_QUEUE_SUB = 1000;
-// Declaring the variables need in the function.
-float dist_val = 0; //Float variable to store the depth data in meters.
 // Creating a global ROS publisher to publish the depth distance.
 ros::Publisher distance_pub;
 // Creating our callback function.
 void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
 {
+    // Declaring the variables needed in the function.
+    float dist_val = 0; //Float variable to store the depth data in meters.
+    
     try {
         // Declaring cv pointer and filling it with msg information.
         cv_bridge::CvImageConstPtr cv_ptr;
         cv_ptr = cv_bridge::toCvShare(msg);
 
         // Setting the global maximum for the data type.
-          double max = 0.0;
+        double max = 0.0;
         // Returning max value of the array.
         cv::minMaxLoc(cv_ptr->image, 0, &max, 0, 0);
         // Declaring the Mat matrix.
         cv::Mat normalized;
         // Here the mat matrix is normalized and converted so we can use the data in the matrix.
         cv_ptr->image.convertTo(normalized, CV_32F, 1.0/max, 0);
-        // stores the scan data in dist_val.
+        // Stores the scan data in dist_val.
         dist_val = cv_ptr->image.at<float>( 239,319 );
         std_msgs::Int8 distance;
         if (dist_val <= 1) {
@@ -50,7 +48,6 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         }// End of else if.
         ROS_INFO("%d", distance.data);
         distance_pub.publish(distance);
-
     }//End of try .
     // Here any exception are handled.
      catch (const cv_bridge::Exception& e) {
@@ -58,11 +55,12 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
     }//End of catch.
 }//End of Depth_callback.
 
-
-
-
 int main(int argc, char* argv[])
 {
+    // Here the publising queue for the subscriber is set to 1000 and 1 for the publisher.
+    static const uint32_t ROS_QUEUE_PUB = 1;
+    static const uint32_t ROS_QUEUE_SUB = 1000;
+    
     // initializing ros and naming the node.
     ros::init(argc, argv, "detection_node");
     // Creating nodehandler.
