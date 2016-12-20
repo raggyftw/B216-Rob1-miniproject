@@ -13,10 +13,9 @@
 static const uint32_t ROS_QUEUE = 1000;
 // Declaring the variables need in the function.
 float dist_val = 0; //Float variable to store the depth data in meters.
-bool kill = false; // Bool to check if rosnode kill has been performed.
+// Creating a global ROS publisher to publish the depth distance.
 ros::Publisher distance_pub;
 // Creating our callback function.
-
 void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
 {
     try {
@@ -32,29 +31,27 @@ void Depth_callback(const sensor_msgs::Image::ConstPtr& msg)
         cv::Mat normalized;
         // Here the mat matrix is normalized and converted so we can use the data in the matrix.
         cv_ptr->image.convertTo(normalized, CV_32F, 1.0/max, 0);
-        // Declaring counter.
-        int counter = 0;
-        // using 2 for loops to make a line scan of the depth/Image.
-              // stores the scan data in dist_val
+        // stores the scan data in dist_val.
         dist_val = cv_ptr->image.at<float>( 239,319 );
-        std_msgs::Int8 distance;
+        std_msgs::Int8 msg;
         if (dist_val <= 1) {
-            distance.data = 1;
-        }
+            msg.data = 1;
+        }// End of if.
         else if(dist_val <= 2  ){
-            distance.data = 2;
-        }
+            msg.data = 2;
+        }// End of else if.
         else if(dist_val <= 3 ){
-            distance.data = 3;
-        }
+            msg.data = 3;
+        }// End of else if.
         else if(dist_val <= 4 ){
-            distance.data = 4;
-        }
+            msg.data = 4;
+        }// End of else if.
         else if(dist_val <= 5 ){
-            distance.data = 5;
-        }
-        ROS_INFO("%d", distance.data);
-        distance_pub.publish(distance);
+            msg.data = 5;
+        }// End of else if.
+        ROS_INFO("%d", msg.data);
+        distance_pub.publish(msg);
+
     }//End of try .
     // Here any exception are handled.
      catch (const cv_bridge::Exception& e) {
@@ -71,7 +68,9 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "detect_node");
     // Creating nodehandler.
     ros::NodeHandle n;
-    distance_pub = n.advertise<std_msgs::Int8>("depth_value", 1);
+    // Advertising our publisher to the desired topic so it can be accessed by the subscriber_node.
+    distance_pub = n.advertise<std_msgs::Int8>("chatter", 1);
+    // Creating another nodehandler for the subscriber.
     ros::NodeHandle nh;
     // Subscribing to the depth image and returning the callback.
     ros::Subscriber sub = nh.subscribe("camera/depth/image", ROS_QUEUE, Depth_callback);
