@@ -1,8 +1,8 @@
 <launch>
  	<include file="$(find openni2_launch)//opt/ros/kinetic/share/openni2_launch/launch/openni2.launch"/> 
- 	<node name="detection_node" pkg="guidebot" type="detection_node" output="screen">
+ 	<node name="detection_node" pkg="pianobot" type="detection_node" output="screen">
 </node>
-	<node name="subscriber_node" pkg="guidebot" type="subscriber_node" output="screen">
+	<node name="subscriber_node" pkg="pianobot" type="subscriber_node" output="screen">
 </node>
 	<node name="playing_sound_node" pkg="sound_play" type="soundplay_node.py" output="screen">
 </node>
