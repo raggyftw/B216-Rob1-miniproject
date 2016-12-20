@@ -7,8 +7,6 @@
 #include <std_msgs/Int8.h>
 #include "sound_play/sound_play.h"
 
-
-//path_to_sounds = "/home/oliver/ros_ws/src/guidebot/Piano/";
 // Here the publising queue for the subscriber is set to 1000.
 static const uint32_t ROS_QUEUE = 1000;
 // Declaring the variables need in the function.
