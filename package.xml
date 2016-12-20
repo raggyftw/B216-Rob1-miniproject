@@ -1,6 +1,6 @@
 <package>
   <!-- Package Metadata -->
-  <name>Pianobot</name>
+  <name>pianobot</name>
   <maintainer email="oeth16@student.aau.dk">Oliver Emil Trudslev Hansen</maintainer>
   <description>
     Code to make a turtlebot play piano sounds depending on camera distance by group B216
